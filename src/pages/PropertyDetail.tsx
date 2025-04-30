@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { 
@@ -27,6 +26,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
+import { DateRange } from "react-day-picker";
 
 // Sample property data for demo
 const propertyData = {
@@ -107,10 +107,7 @@ export default function PropertyDetail() {
   // For demo purposes, we're using static data
   const property = propertyData;
   
-  const [dateRange, setDateRange] = useState<{
-    from: Date | undefined;
-    to: Date | undefined;
-  }>({
+  const [dateRange, setDateRange] = useState<DateRange>({
     from: undefined,
     to: undefined,
   });
@@ -259,7 +256,7 @@ export default function PropertyDetail() {
                           unavailable.toDateString() === date.toDateString()
                         )
                       }
-                      className="rounded-md border shadow p-3 max-w-[calc(100vw-2rem)] md:max-w-none"
+                      className="rounded-md border shadow p-3 max-w-[calc(100vw-2rem)] md:max-w-none pointer-events-auto"
                     />
                   </div>
                 </TabsContent>
@@ -346,7 +343,7 @@ export default function PropertyDetail() {
                             )
                           }
                           initialFocus
-                          className={cn("p-3 pointer-events-auto")}
+                          className="p-3 pointer-events-auto"
                         />
                       </PopoverContent>
                     </Popover>
@@ -382,7 +379,7 @@ export default function PropertyDetail() {
                             )
                           }
                           initialFocus
-                          className={cn("p-3 pointer-events-auto")}
+                          className="p-3 pointer-events-auto"
                         />
                       </PopoverContent>
                     </Popover>

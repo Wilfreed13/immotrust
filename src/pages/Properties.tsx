@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { MapPin, Home, CalendarIcon, Sliders, Search as SearchIcon, X, Filter } from "lucide-react";
@@ -130,7 +129,7 @@ export default function Properties() {
   const location = useLocation();
   const [filters, setFilters] = useState({
     location: "",
-    type: "",
+    type: "all",
     priceRange: [0, 1000],
     dates: {
       from: undefined as Date | undefined,
@@ -148,7 +147,7 @@ export default function Properties() {
     
     const newFilters = { ...filters };
     if (params.get("location")) newFilters.location = params.get("location") || "";
-    if (params.get("type")) newFilters.type = params.get("type") || "";
+    if (params.get("type")) newFilters.type = params.get("type") || "all";
     if (params.get("checkin") && params.get("checkout")) {
       newFilters.dates = {
         from: params.get("checkin") ? new Date(params.get("checkin") || "") : undefined,
@@ -172,7 +171,7 @@ export default function Properties() {
     }
     
     // Apply type filter
-    if (filters.type) {
+    if (filters.type && filters.type !== "all") {
       filtered = filtered.filter(property => 
         property.type.toLowerCase() === filters.type.toLowerCase()
       );
@@ -193,7 +192,7 @@ export default function Properties() {
     // Count active filters
     let count = 0;
     if (filters.location) count++;
-    if (filters.type) count++;
+    if (filters.type !== "all") count++;
     if (filters.priceRange[0] > 0 || filters.priceRange[1] < 1000) count++;
     if (filters.dates.from && filters.dates.to) count++;
     if (filters.amenities.length > 0) count++;
@@ -240,7 +239,7 @@ export default function Properties() {
   const resetFilters = () => {
     setFilters({
       location: "",
-      type: "",
+      type: "all",
       priceRange: [0, 1000],
       dates: {
         from: undefined,
@@ -276,7 +275,7 @@ export default function Properties() {
                 </div>
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">Tous les types</SelectItem>
+                <SelectItem value="all">Tous les types</SelectItem>
                 <SelectItem value="appartement">Appartement</SelectItem>
                 <SelectItem value="maison">Maison</SelectItem>
                 <SelectItem value="villa">Villa</SelectItem>
@@ -493,7 +492,7 @@ export default function Properties() {
               </Badge>
             )}
             
-            {filters.type && (
+            {filters.type !== "all" && (
               <Badge variant="secondary" className="flex items-center gap-1">
                 {filters.type}
                 <X 

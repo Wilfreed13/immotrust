@@ -120,7 +120,7 @@ export default function SearchForm({ className, isHero = false }: SearchFormProp
               selected={dateRange}
               onSelect={setDateRange}
               numberOfMonths={2}
-              className={cn("p-3 pointer-events-auto")}
+              className="p-3 pointer-events-auto"
             />
           </PopoverContent>
         </Popover>
