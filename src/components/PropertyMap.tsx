@@ -11,6 +11,7 @@ type Property = {
   price: number;
   rating: number;
   coordinates: [number, number];
+  image?: string;
 };
 
 type PropertyMapProps = {
@@ -89,7 +90,10 @@ const PropertyMap = ({ properties }: PropertyMapProps) => {
       const popup = new mapboxgl.Popup({ offset: 25 })
         .setHTML(`
           <div style="width: 200px;">
-            <img src="${property.image}" alt="${property.title}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 4px; margin-bottom: 8px;">
+            ${property.image ? 
+              `<img src="${property.image}" alt="${property.title}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 4px; margin-bottom: 8px;">` : 
+              ''
+            }
             <h4 style="font-weight: bold; margin-bottom: 4px;">${property.title}</h4>
             <p style="color: #666; margin-bottom: 6px;">${property.location}</p>
             <p style="font-weight: bold;">${property.price.toLocaleString('fr-FR')} FCFA / nuit</p>

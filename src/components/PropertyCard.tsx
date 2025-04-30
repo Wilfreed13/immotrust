@@ -4,7 +4,7 @@ import { Star, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
-type PropertyCardProps = {
+export type PropertyCardProps = {
   id: string;
   title: string;
   location: string;

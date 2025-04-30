@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
-type City = {
+export type City = {
   id: string;
   name: string;
   coordinates: [number, number];
