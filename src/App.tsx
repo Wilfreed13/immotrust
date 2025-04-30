@@ -15,6 +15,7 @@ import PropertyDetail from "./pages/PropertyDetail";
 import Dashboard from "./pages/Dashboard";
 import Messages from "./pages/Messages";
 import PropertyForm from "./pages/PropertyForm";
+import Cities from "./pages/Cities";
 
 // Create a new QueryClient instance
 const queryClient = new QueryClient();
@@ -35,6 +36,7 @@ const App = () => {
                 <Route path="/properties/add" element={<PropertyForm />} />
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/messages" element={<Messages />} />
+                <Route path="/cities" element={<Cities />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>
