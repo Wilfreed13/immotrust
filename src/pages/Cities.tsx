@@ -7,55 +7,55 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Building2, MapPin, Home } from "lucide-react";
 
-// Données de démonstration pour les villes
+// Données de démonstration pour les villes du Cameroun
 const citiesData = [
   {
     id: "1",
-    name: "Paris",
-    country: "France",
-    description: "La ville de l'amour et de la lumière",
-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?q=80&w=2073&auto=format&fit=crop",
-    properties: 125,
+    name: "Douala",
+    country: "Cameroun",
+    description: "Capitale économique et plus grand port maritime du Cameroun",
+    image: "https://images.unsplash.com/photo-1608507777998-7b4de394ccbe?q=80&w=2070&auto=format&fit=crop",
+    properties: 96,
   },
   {
     id: "2",
-    name: "Nice",
-    country: "France",
-    description: "Ville côtière avec vue sur la Méditerranée",
-    image: "https://images.unsplash.com/photo-1599723968873-ef389448b0ef?q=80&w=2070&auto=format&fit=crop",
-    properties: 78,
+    name: "Yaoundé",
+    country: "Cameroun",
+    description: "Capitale politique et administrative du Cameroun",
+    image: "https://images.unsplash.com/photo-1612297728955-a0ad12a75df9?q=80&w=2070&auto=format&fit=crop",
+    properties: 84,
   },
   {
     id: "3",
-    name: "Lyon",
-    country: "France",
-    description: "Célèbre pour sa gastronomie et son patrimoine culturel",
-    image: "https://images.unsplash.com/photo-1524060484562-619e9d6b6f04?q=80&w=2070&auto=format&fit=crop",
-    properties: 64,
+    name: "Kribi",
+    country: "Cameroun",
+    description: "Célèbre station balnéaire avec des plages magnifiques",
+    image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?q=80&w=2074&auto=format&fit=crop",
+    properties: 45,
   },
   {
     id: "4",
-    name: "Bordeaux",
-    country: "France",
-    description: "Réputée pour ses vignobles et son architecture",
-    image: "https://images.unsplash.com/photo-1589378953237-33e63b0b83a9?q=80&w=2071&auto=format&fit=crop",
-    properties: 53,
+    name: "Limbé",
+    country: "Cameroun",
+    description: "Ville côtière connue pour ses plages de sable noir et son jardin botanique",
+    image: "https://images.unsplash.com/photo-1652367366263-cbe27d8ace95?q=80&w=2071&auto=format&fit=crop",
+    properties: 37,
   },
   {
     id: "5",
-    name: "Marseille",
-    country: "France",
-    description: "Port méditerranéen historique",
-    image: "https://images.unsplash.com/photo-1589209557834-355282f20b13?q=80&w=2070&auto=format&fit=crop",
-    properties: 91,
+    name: "Bafoussam",
+    country: "Cameroun",
+    description: "Centre commercial et culturel important de l'Ouest",
+    image: "https://images.unsplash.com/photo-1554662392-e1a161135902?q=80&w=2070&auto=format&fit=crop",
+    properties: 29,
   },
   {
     id: "6",
-    name: "Strasbourg",
-    country: "France",
-    description: "Célèbre pour son marché de Noël et son architecture germanique",
-    image: "https://images.unsplash.com/photo-1577107025610-c8761b84c567?q=80&w=2070&auto=format&fit=crop",
-    properties: 42,
+    name: "Buea",
+    country: "Cameroun",
+    description: "Ville située au pied du mont Cameroun, plus haut sommet d'Afrique de l'Ouest",
+    image: "https://images.unsplash.com/photo-1468276868664-fdcc7bcef5de?q=80&w=2070&auto=format&fit=crop",
+    properties: 31,
   },
 ];
 
@@ -77,7 +77,7 @@ export default function Cities() {
       <Navbar />
       
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6">Découvrez nos destinations</h1>
+        <h1 className="text-3xl font-bold mb-6">Découvrez les villes du Cameroun</h1>
         
         <div className="relative mb-8">
           <Input

@@ -1,7 +1,8 @@
+
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { 
-  Calendar as CalendarIcon, 
+  CalendarIcon as CalendarIconUI, 
   MapPin, 
   Star, 
   Users, 
@@ -28,45 +29,45 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { DateRange } from "react-day-picker";
 
-// Sample property data for demo
+// Sample property data for demo - Updated for Douala, Cameroon
 const propertyData = {
   id: "1",
-  title: "Villa moderne vue sur mer",
-  description: "Superbe villa moderne offrant une vue imprenable sur la mer Méditerranée. Cette propriété exclusive dispose de tout le confort nécessaire pour passer des vacances inoubliables. Avec ses grandes baies vitrées, sa piscine à débordement et sa terrasse spacieuse, vous pourrez profiter pleinement du climat méditerranéen tout en admirant des couchers de soleil spectaculaires.",
-  location: "Nice, France",
-  price: 250,
-  rating: 4.9,
-  reviews: 124,
+  title: "Villa luxueuse à Bonanjo",
+  description: "Magnifique villa située dans le quartier prestigieux de Bonanjo à Douala. Cette propriété exceptionnelle offre un cadre de vie luxueux avec une architecture contemporaine et des finitions haut de gamme. Idéalement située près du fleuve Wouri, elle bénéficie d'une vue imprenable et d'un accès facile au centre des affaires.",
+  location: "Bonanjo, Douala, Cameroun",
+  price: 150000,
+  rating: 4.8,
+  reviews: 87,
   host: {
-    name: "Marie Dupont",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop",
-    response_rate: 98,
-    joined: "2019"
+    name: "Jean-Paul Mbarga",
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop",
+    response_rate: 96,
+    joined: "2020"
   },
-  guests: 6,
-  bedrooms: 3,
-  beds: 4,
-  bathrooms: 2,
+  guests: 8,
+  bedrooms: 4,
+  beds: 6,
+  bathrooms: 3,
   images: [
-    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=2053&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600607687644-c7171b42498f?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1600210492493-0946911123ea?q=80&w=2074&auto=format&fit=crop"
+    "https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1618221118493-9cfa1a1c00da?q=80&w=2080&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop"
   ],
   amenities: [
-    "Vue sur la mer",
     "Piscine privée",
-    "Wi-Fi",
+    "Wi-Fi haut débit",
     "Climatisation",
     "Cuisine équipée",
-    "Parking",
-    "Machine à laver",
-    "Sèche-linge",
-    "Télévision",
+    "Parking sécurisé",
+    "Système de sécurité 24/7",
+    "Générateur électrique",
+    "Jardin tropical",
     "Terrasse",
-    "Barbecue",
-    "Jardin"
+    "Salle de sport",
+    "Service de ménage quotidien",
+    "Chauffeur privé (en option)"
   ],
   unavailableDates: [
     new Date(2025, 4, 15),
@@ -79,24 +80,24 @@ const propertyData = {
   reviews_list: [
     {
       id: 1,
-      user: "Jean Martin",
+      user: "Alain Tchinda",
       date: "Mars 2025",
       rating: 5,
-      comment: "Séjour parfait ! La villa est magnifique et la vue est à couper le souffle. Nous avons particulièrement apprécié les couchers de soleil depuis la terrasse. Marie est une hôte très attentionnée."
+      comment: "Une villa extraordinaire avec un service impeccable. L'emplacement à Bonanjo est parfait, proche de tout mais dans un environnement calme et sécurisé. Je recommande vivement pour les séjours d'affaires ou en famille."
     },
     {
       id: 2,
-      user: "Sophie Lefevre",
+      user: "Sophie Kemegni",
       date: "Février 2025",
-      rating: 5,
-      comment: "Une propriété exceptionnelle, exactement comme sur les photos. Très propre et bien équipée. La piscine est superbe et la vue sur la mer est incroyable. Nous reviendrons !"
+      rating: 4,
+      comment: "Excellent séjour dans cette villa spacieuse et bien entretenue. Le personnel est attentif et professionnel. Seul petit bémol, quelques coupures d'électricité malgré le générateur. Heureusement, elles ont été de courte durée."
     },
     {
       id: 3,
-      user: "Pierre Dubois",
+      user: "Patrick Mballa",
       date: "Janvier 2025",
-      rating: 4,
-      comment: "Très belle villa avec une vue magnifique. Quelques petits détails d'équipement à améliorer mais rien qui n'ait gâché notre séjour. L'accueil de Marie était parfait."
+      rating: 5,
+      comment: "Une expérience inoubliable à Douala. La villa est encore plus belle que sur les photos. Le quartier de Bonanjo est très agréable, avec ses restaurants et sa proximité du fleuve. Je reviendrai certainement!"
     }
   ]
 };
@@ -107,7 +108,7 @@ export default function PropertyDetail() {
   // For demo purposes, we're using static data
   const property = propertyData;
   
-  const [dateRange, setDateRange] = useState<DateRange>({
+  const [dateRange, setDateRange] = useState<DateRange | undefined>({
     from: undefined,
     to: undefined,
   });
@@ -115,7 +116,7 @@ export default function PropertyDetail() {
   const [guests, setGuests] = useState(1);
   
   const handleReservation = () => {
-    if (!dateRange.from || !dateRange.to) {
+    if (!dateRange?.from || !dateRange?.to) {
       toast.error("Veuillez sélectionner les dates de votre séjour");
       return;
     }
@@ -129,7 +130,7 @@ export default function PropertyDetail() {
     toast.success("Votre message a été envoyé à l'hôte");
   };
   
-  const totalNights = dateRange.from && dateRange.to 
+  const totalNights = dateRange?.from && dateRange?.to 
     ? Math.round((dateRange.to.getTime() - dateRange.from.getTime()) / (1000 * 60 * 60 * 24)) 
     : 0;
   
@@ -302,7 +303,7 @@ export default function PropertyDetail() {
           <div className="w-full lg:w-[380px]">
             <div className="bg-card rounded-xl border shadow-lg p-6 sticky top-24">
               <div className="flex items-center justify-between mb-6">
-                <span className="text-xl font-semibold">{property.price} € <span className="text-muted-foreground text-sm font-normal">/ nuit</span></span>
+                <span className="text-xl font-semibold">{property.price.toLocaleString('fr-FR')} FCFA <span className="text-muted-foreground text-sm font-normal">/ nuit</span></span>
                 <div className="flex items-center">
                   <Star className="h-4 w-4 text-yellow-500 mr-1 fill-yellow-500" />
                   <span>{property.rating}</span>
@@ -321,10 +322,10 @@ export default function PropertyDetail() {
                           variant="ghost"
                           className={cn(
                             "w-full justify-start p-0 text-left font-normal",
-                            !dateRange.from && "text-muted-foreground"
+                            !dateRange?.from && "text-muted-foreground"
                           )}
                         >
-                          {dateRange.from ? (
+                          {dateRange?.from ? (
                             format(dateRange.from, "d MMM", { locale: fr })
                           ) : (
                             "Ajouter"
@@ -357,10 +358,10 @@ export default function PropertyDetail() {
                           variant="ghost"
                           className={cn(
                             "w-full justify-start p-0 text-left font-normal",
-                            !dateRange.to && "text-muted-foreground"
+                            !dateRange?.to && "text-muted-foreground"
                           )}
                         >
-                          {dateRange.to ? (
+                          {dateRange?.to ? (
                             format(dateRange.to, "d MMM", { locale: fr })
                           ) : (
                             "Ajouter"
@@ -420,7 +421,7 @@ export default function PropertyDetail() {
                 className="w-full mb-6" 
                 size="lg"
                 onClick={handleReservation}
-                disabled={!dateRange.from || !dateRange.to}
+                disabled={!dateRange?.from || !dateRange?.to}
               >
                 Réserver
               </Button>
@@ -428,17 +429,17 @@ export default function PropertyDetail() {
               {totalNights > 0 && (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span>{property.price} € x {totalNights} nuits</span>
-                    <span>{totalPrice} €</span>
+                    <span>{property.price.toLocaleString('fr-FR')} FCFA x {totalNights} nuits</span>
+                    <span>{totalPrice.toLocaleString('fr-FR')} FCFA</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span>Frais de service</span>
-                    <span>{serviceFee} €</span>
+                    <span>{serviceFee.toLocaleString('fr-FR')} FCFA</span>
                   </div>
                   <Separator />
                   <div className="flex items-center justify-between font-semibold">
                     <span>Total</span>
-                    <span>{totalWithFees} €</span>
+                    <span>{totalWithFees.toLocaleString('fr-FR')} FCFA</span>
                   </div>
                 </div>
               )}
