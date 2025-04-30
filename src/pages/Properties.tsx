@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { MapPin, Home, CalendarIcon, Sliders, Search as SearchIcon, X, Filter } from "lucide-react";
@@ -34,95 +35,105 @@ import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import { DateRange } from "react-day-picker";
+import PropertyMap from "@/components/PropertyMap";
 
-// Sample data for demo purposes
+// Sample data for Cameroon properties
 const allProperties = [
   {
     id: "1",
-    title: "Villa moderne vue sur mer",
-    location: "Nice, France",
-    price: 250,
+    title: "Villa luxueuse à Bonanjo",
+    location: "Douala, Cameroun",
+    price: 150000,
     rating: 4.9,
-    image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2070&auto=format&fit=crop",
-    type: "Villa"
+    image: "https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?q=80&w=2070&auto=format&fit=crop",
+    type: "Villa",
+    coordinates: [9.6917, 4.0480]
   },
   {
     id: "2",
-    title: "Appartement élégant au centre-ville",
-    location: "Paris, France",
-    price: 180,
+    title: "Appartement moderne à Bonapriso",
+    location: "Douala, Cameroun",
+    price: 85000,
     rating: 4.7,
     image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2070&auto=format&fit=crop",
-    type: "Appartement"
+    type: "Appartement",
+    coordinates: [9.7020, 4.0570]
   },
   {
     id: "3",
-    title: "Chalet de luxe en montagne",
-    location: "Chamonix, France",
-    price: 320,
+    title: "Maison coloniale rénovée à Akwa",
+    location: "Douala, Cameroun",
+    price: 120000,
     rating: 4.8,
     image: "https://images.unsplash.com/photo-1542718610-a1d656d1884c?q=80&w=1974&auto=format&fit=crop",
-    type: "Chalet"
+    type: "Maison",
+    coordinates: [9.7068, 4.0601]
   },
   {
     id: "4",
-    title: "Loft industriel rénové",
-    location: "Lyon, France",
-    price: 150,
+    title: "Studio équipé à Deido",
+    location: "Douala, Cameroun",
+    price: 45000,
     rating: 4.5,
     image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=2070&auto=format&fit=crop",
-    type: "Loft"
+    type: "Studio",
+    coordinates: [9.7195, 4.0826]
   },
   {
     id: "5",
-    title: "Maison de campagne charmante",
-    location: "Provence, France",
-    price: 190,
+    title: "Villa au bord du Wouri",
+    location: "Douala, Cameroun",
+    price: 180000,
     rating: 4.6,
     image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop",
-    type: "Maison"
+    type: "Villa",
+    coordinates: [9.6807, 4.0658]
   },
   {
     id: "6",
-    title: "Studio contemporain avec terrasse",
-    location: "Bordeaux, France",
-    price: 130,
+    title: "Appartement avec vue sur la cathédrale",
+    location: "Yaoundé, Cameroun",
+    price: 75000,
     rating: 4.4,
     image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=2070&auto=format&fit=crop",
-    type: "Appartement"
+    type: "Appartement",
+    coordinates: [11.5174, 3.8721]
   },
   {
     id: "7",
-    title: "Penthouse avec vue panoramique",
-    location: "Cannes, France",
-    price: 450,
+    title: "Penthouse de luxe à Bastos",
+    location: "Yaoundé, Cameroun",
+    price: 250000,
     rating: 4.9,
     image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
-    type: "Appartement"
+    type: "Appartement",
+    coordinates: [11.5037, 3.8831]
   },
   {
     id: "8",
-    title: "Villa avec piscine privée",
-    location: "Saint-Tropez, France",
-    price: 550,
+    title: "Villa avec piscine à Kribi",
+    location: "Kribi, Cameroun",
+    price: 200000,
     rating: 4.8,
     image: "https://images.unsplash.com/photo-1613977257363-707ba9348227?q=80&w=2070&auto=format&fit=crop",
-    type: "Villa"
+    type: "Villa",
+    coordinates: [9.9137, 2.9404]
   },
   {
     id: "9",
-    title: "Maison traditionnelle en pierre",
-    location: "Bretagne, France",
-    price: 200,
+    title: "Bungalow face à la mer",
+    location: "Limbé, Cameroun",
+    price: 120000,
     rating: 4.7,
     image: "https://images.unsplash.com/photo-1575517111839-3a3843ee7f5d?q=80&w=2070&auto=format&fit=crop",
-    type: "Maison"
+    type: "Maison",
+    coordinates: [9.1849, 4.0214]
   }
 ];
 
 const amenities = [
   "Wi-Fi", "Piscine", "Climatisation", "Cuisine équipée", 
-  "Parking", "Machine à laver", "Télévision", "Terrasse"
+  "Parking", "Générateur électrique", "Télévision", "Terrasse"
 ];
 
 export default function Properties() {
@@ -130,7 +141,7 @@ export default function Properties() {
   const [filters, setFilters] = useState({
     location: "",
     type: "all",
-    priceRange: [0, 1000],
+    priceRange: [0, 300000],
     dates: {
       from: undefined as Date | undefined,
       to: undefined as Date | undefined,
@@ -140,6 +151,7 @@ export default function Properties() {
   
   const [properties, setProperties] = useState(allProperties);
   const [activeFiltersCount, setActiveFiltersCount] = useState(0);
+  const [showMap, setShowMap] = useState(false);
   
   // Set initial filters from URL params
   useEffect(() => {
@@ -193,7 +205,7 @@ export default function Properties() {
     let count = 0;
     if (filters.location) count++;
     if (filters.type !== "all") count++;
-    if (filters.priceRange[0] > 0 || filters.priceRange[1] < 1000) count++;
+    if (filters.priceRange[0] > 0 || filters.priceRange[1] < 300000) count++;
     if (filters.dates.from && filters.dates.to) count++;
     if (filters.amenities.length > 0) count++;
     setActiveFiltersCount(count);
@@ -210,7 +222,7 @@ export default function Properties() {
   };
   
   const handlePriceChange = (value: number[]) => {
-    setFilters({ ...filters, priceRange: [value[0] || 0, value[1] || 1000] });
+    setFilters({ ...filters, priceRange: [value[0] || 0, value[1] || 300000] });
   };
   
   const handleDatesChange = (range: DateRange | undefined) => {
@@ -240,7 +252,7 @@ export default function Properties() {
     setFilters({
       location: "",
       type: "all",
-      priceRange: [0, 1000],
+      priceRange: [0, 300000],
       dates: {
         from: undefined,
         to: undefined,
@@ -279,8 +291,7 @@ export default function Properties() {
                 <SelectItem value="appartement">Appartement</SelectItem>
                 <SelectItem value="maison">Maison</SelectItem>
                 <SelectItem value="villa">Villa</SelectItem>
-                <SelectItem value="chalet">Chalet</SelectItem>
-                <SelectItem value="loft">Loft</SelectItem>
+                <SelectItem value="studio">Studio</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -308,7 +319,7 @@ export default function Properties() {
                 </div>
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
+            <PopoverContent className="w-auto p-0 pointer-events-auto" align="start">
               <Calendar
                 initialFocus
                 mode="range"
@@ -319,7 +330,7 @@ export default function Properties() {
                 }}
                 onSelect={handleDatesChange}
                 numberOfMonths={2}
-                className={cn("p-3 pointer-events-auto")}
+                className={cn("p-3")}
               />
             </PopoverContent>
           </Popover>
@@ -350,18 +361,18 @@ export default function Properties() {
                 
                 <div className="py-6">
                   <div className="mb-8">
-                    <h3 className="font-medium mb-4">Prix par nuit</h3>
+                    <h3 className="font-medium mb-4">Prix par nuit (FCFA)</h3>
                     <div className="px-2">
                       <SliderComponent
                         defaultValue={[filters.priceRange[0], filters.priceRange[1]]}
-                        max={1000}
-                        step={10}
+                        max={300000}
+                        step={5000}
                         onValueChange={handlePriceChange}
                       />
                     </div>
                     <div className="flex items-center justify-between mt-2 text-sm">
-                      <span>{filters.priceRange[0]} €</span>
-                      <span>{filters.priceRange[1]} €</span>
+                      <span>{filters.priceRange[0].toLocaleString('fr-FR')} FCFA</span>
+                      <span>{filters.priceRange[1].toLocaleString('fr-FR')} FCFA</span>
                     </div>
                   </div>
                   
@@ -406,23 +417,23 @@ export default function Properties() {
                 <Button variant="outline" className="flex items-center">
                   <Sliders className="h-4 w-4 mr-2" />
                   Prix
-                  {(filters.priceRange[0] > 0 || filters.priceRange[1] < 1000) && (
+                  {(filters.priceRange[0] > 0 || filters.priceRange[1] < 300000) && (
                     <Badge variant="secondary" className="ml-2">1</Badge>
                   )}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-80">
                 <div className="p-2">
-                  <h3 className="font-medium mb-4">Prix par nuit</h3>
+                  <h3 className="font-medium mb-4">Prix par nuit (FCFA)</h3>
                   <SliderComponent
                     defaultValue={[filters.priceRange[0], filters.priceRange[1]]}
-                    max={1000}
-                    step={10}
+                    max={300000}
+                    step={5000}
                     onValueChange={handlePriceChange}
                   />
                   <div className="flex items-center justify-between mt-2 text-sm">
-                    <span>{filters.priceRange[0]} €</span>
-                    <span>{filters.priceRange[1]} €</span>
+                    <span>{filters.priceRange[0].toLocaleString('fr-FR')} FCFA</span>
+                    <span>{filters.priceRange[1].toLocaleString('fr-FR')} FCFA</span>
                   </div>
                 </div>
               </PopoverContent>
@@ -477,6 +488,15 @@ export default function Properties() {
               <span className="sr-only">Effacer les filtres</span>
             </Button>
           )}
+
+          {/* Toggle Map View */}
+          <Button 
+            variant="outline" 
+            className="ml-auto" 
+            onClick={() => setShowMap(!showMap)}
+          >
+            {showMap ? "Afficher la liste" : "Afficher la carte"}
+          </Button>
         </div>
         
         {/* Active filters */}
@@ -497,17 +517,17 @@ export default function Properties() {
                 {filters.type}
                 <X 
                   className="h-3 w-3 ml-1 cursor-pointer" 
-                  onClick={() => setFilters({ ...filters, type: "" })}
+                  onClick={() => setFilters({ ...filters, type: "all" })}
                 />
               </Badge>
             )}
             
-            {(filters.priceRange[0] > 0 || filters.priceRange[1] < 1000) && (
+            {(filters.priceRange[0] > 0 || filters.priceRange[1] < 300000) && (
               <Badge variant="secondary" className="flex items-center gap-1">
-                {filters.priceRange[0]} € - {filters.priceRange[1]} €
+                {filters.priceRange[0].toLocaleString('fr-FR')} - {filters.priceRange[1].toLocaleString('fr-FR')} FCFA
                 <X 
                   className="h-3 w-3 ml-1 cursor-pointer" 
-                  onClick={() => setFilters({ ...filters, priceRange: [0, 1000] })}
+                  onClick={() => setFilters({ ...filters, priceRange: [0, 300000] })}
                 />
               </Badge>
             )}
@@ -561,6 +581,10 @@ export default function Properties() {
                 Essayez de modifier vos filtres pour trouver ce que vous cherchez.
               </p>
               <Button onClick={resetFilters}>Réinitialiser les filtres</Button>
+            </div>
+          ) : showMap ? (
+            <div className="h-[70vh] rounded-lg overflow-hidden mb-8">
+              <PropertyMap properties={properties} />
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

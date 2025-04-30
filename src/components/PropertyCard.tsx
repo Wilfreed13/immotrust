@@ -14,6 +14,7 @@ type PropertyCardProps = {
   type: string;
   className?: string;
   featured?: boolean;
+  coordinates?: [number, number];
 };
 
 export default function PropertyCard({
@@ -31,7 +32,7 @@ export default function PropertyCard({
     <Link 
       to={`/properties/${id}`} 
       className={cn(
-        "property-card block",
+        "property-card block relative",
         featured ? "bg-card" : "",
         className
       )}
@@ -65,7 +66,7 @@ export default function PropertyCard({
         </div>
         <div className="mt-4">
           <p className="font-semibold">
-            {price.toLocaleString('fr-FR')} € <span className="text-muted-foreground font-normal text-sm">/ nuit</span>
+            {price.toLocaleString('fr-FR')} FCFA <span className="text-muted-foreground font-normal text-sm">/ nuit</span>
           </p>
         </div>
       </div>
