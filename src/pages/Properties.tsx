@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { MapPin, Home, Calendar, Slider, Search, X, Filter } from "lucide-react";
+import { MapPin, Home, CalendarIcon, Sliders, Search as SearchIcon, X, Filter } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PropertyCard from "@/components/PropertyCard";
@@ -34,6 +34,7 @@ import {
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { cn } from "@/lib/utils";
+import { DateRange } from "react-day-picker";
 
 // Sample data for demo purposes
 const allProperties = [
@@ -213,8 +214,14 @@ export default function Properties() {
     setFilters({ ...filters, priceRange: [value[0] || 0, value[1] || 1000] });
   };
   
-  const handleDatesChange = (range: { from: Date | undefined; to: Date | undefined }) => {
-    setFilters({ ...filters, dates: range });
+  const handleDatesChange = (range: DateRange | undefined) => {
+    setFilters({ 
+      ...filters, 
+      dates: {
+        from: range?.from,
+        to: range?.to
+      }
+    });
   };
   
   const toggleAmenity = (amenity: string) => {
@@ -286,7 +293,7 @@ export default function Properties() {
                 className="w-full lg:w-auto flex justify-between items-center"
               >
                 <div className="flex items-center">
-                  <Calendar className="h-4 w-4 mr-2" />
+                  <CalendarIcon className="h-4 w-4 mr-2" />
                   {filters.dates.from ? (
                     filters.dates.to ? (
                       <>
@@ -307,7 +314,10 @@ export default function Properties() {
                 initialFocus
                 mode="range"
                 defaultMonth={filters.dates.from}
-                selected={filters.dates}
+                selected={{
+                  from: filters.dates.from,
+                  to: filters.dates.to
+                }}
                 onSelect={handleDatesChange}
                 numberOfMonths={2}
                 className={cn("p-3 pointer-events-auto")}
@@ -395,7 +405,7 @@ export default function Properties() {
             <Popover>
               <PopoverTrigger asChild>
                 <Button variant="outline" className="flex items-center">
-                  <Slider className="h-4 w-4 mr-2" />
+                  <Sliders className="h-4 w-4 mr-2" />
                   Prix
                   {(filters.priceRange[0] > 0 || filters.priceRange[1] < 1000) && (
                     <Badge variant="secondary" className="ml-2">1</Badge>
@@ -546,7 +556,7 @@ export default function Properties() {
           
           {properties.length === 0 ? (
             <div className="py-20 text-center">
-              <Search className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+              <SearchIcon className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
               <h2 className="text-xl font-semibold mb-2">Aucune propriété trouvée</h2>
               <p className="text-muted-foreground mb-6">
                 Essayez de modifier vos filtres pour trouver ce que vous cherchez.

@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, MapPin, Calendar, Home } from "lucide-react";
+import { Search, MapPin, CalendarIcon, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -16,10 +16,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { Calendar as CalendarComponent } from "@/components/ui/calendar";
+import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import { cn } from "@/lib/utils";
+import { DateRange } from "react-day-picker";
 
 type SearchFormProps = {
   className?: string;
@@ -30,10 +31,7 @@ export default function SearchForm({ className, isHero = false }: SearchFormProp
   const navigate = useNavigate();
   const [location, setLocation] = useState("");
   const [propertyType, setPropertyType] = useState("");
-  const [dateRange, setDateRange] = useState<{
-    from: Date | undefined;
-    to: Date | undefined;
-  }>({
+  const [dateRange, setDateRange] = useState<DateRange>({
     from: undefined,
     to: undefined,
   });
@@ -99,7 +97,7 @@ export default function SearchForm({ className, isHero = false }: SearchFormProp
                 !dateRange.from && "text-muted-foreground"
               )}
             >
-              <Calendar className="mr-2 h-4 w-4" />
+              <CalendarIcon className="mr-2 h-4 w-4" />
               {dateRange.from ? (
                 dateRange.to ? (
                   <>
@@ -115,7 +113,7 @@ export default function SearchForm({ className, isHero = false }: SearchFormProp
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-auto p-0" align="start">
-            <CalendarComponent
+            <Calendar
               initialFocus
               mode="range"
               defaultMonth={dateRange.from}

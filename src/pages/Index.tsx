@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -7,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SearchForm from "@/components/SearchForm";
 import PropertyCard from "@/components/PropertyCard";
+import { Search as SearchIcon, CalendarIcon, Home } from "lucide-react";
 
 // Sample data for demo purposes
 const featuredProperties = [
@@ -210,7 +210,7 @@ export default function Index() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="text-center">
             <div className="h-16 w-16 bg-primary/10 rounded-full mx-auto flex items-center justify-center mb-4">
-              <Search className="h-8 w-8 text-primary" />
+              <SearchIcon className="h-8 w-8 text-primary" />
             </div>
             <h3 className="text-xl font-semibold mb-3">Recherchez</h3>
             <p className="text-muted-foreground">
@@ -220,7 +220,7 @@ export default function Index() {
           
           <div className="text-center">
             <div className="h-16 w-16 bg-primary/10 rounded-full mx-auto flex items-center justify-center mb-4">
-              <Calendar className="h-8 w-8 text-primary" />
+              <CalendarIcon className="h-8 w-8 text-primary" />
             </div>
             <h3 className="text-xl font-semibold mb-3">Réservez</h3>
             <p className="text-muted-foreground">
