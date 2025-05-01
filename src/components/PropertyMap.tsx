@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -10,7 +9,7 @@ type Property = {
   location: string;
   price: number;
   rating: number;
-  coordinates: [number, number]; // Typed as tuple
+  coordinates: [number, number]; // Correctly typed as tuple
   image?: string;
 };
 

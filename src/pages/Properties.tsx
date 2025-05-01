@@ -47,7 +47,7 @@ const allProperties = [
     rating: 4.9,
     image: "https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?q=80&w=2070&auto=format&fit=crop",
     type: "Villa",
-    coordinates: [9.6917, 4.0480]
+    coordinates: [9.6917, 4.0480] as [number, number]
   },
   {
     id: "2",
@@ -57,7 +57,7 @@ const allProperties = [
     rating: 4.7,
     image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2070&auto=format&fit=crop",
     type: "Appartement",
-    coordinates: [9.7020, 4.0570]
+    coordinates: [9.7020, 4.0570] as [number, number]
   },
   {
     id: "3",
@@ -67,7 +67,7 @@ const allProperties = [
     rating: 4.8,
     image: "https://images.unsplash.com/photo-1542718610-a1d656d1884c?q=80&w=1974&auto=format&fit=crop",
     type: "Maison",
-    coordinates: [9.7068, 4.0601]
+    coordinates: [9.7068, 4.0601] as [number, number]
   },
   {
     id: "4",
@@ -77,7 +77,7 @@ const allProperties = [
     rating: 4.5,
     image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=2070&auto=format&fit=crop",
     type: "Studio",
-    coordinates: [9.7195, 4.0826]
+    coordinates: [9.7195, 4.0826] as [number, number]
   },
   {
     id: "5",
@@ -87,7 +87,7 @@ const allProperties = [
     rating: 4.6,
     image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop",
     type: "Villa",
-    coordinates: [9.6807, 4.0658]
+    coordinates: [9.6807, 4.0658] as [number, number]
   },
   {
     id: "6",
@@ -97,7 +97,7 @@ const allProperties = [
     rating: 4.4,
     image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=2070&auto=format&fit=crop",
     type: "Appartement",
-    coordinates: [11.5174, 3.8721]
+    coordinates: [11.5174, 3.8721] as [number, number]
   },
   {
     id: "7",
@@ -107,7 +107,7 @@ const allProperties = [
     rating: 4.9,
     image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
     type: "Appartement",
-    coordinates: [11.5037, 3.8831]
+    coordinates: [11.5037, 3.8831] as [number, number]
   },
   {
     id: "8",
@@ -117,7 +117,7 @@ const allProperties = [
     rating: 4.8,
     image: "https://images.unsplash.com/photo-1613977257363-707ba9348227?q=80&w=2070&auto=format&fit=crop",
     type: "Villa",
-    coordinates: [9.9137, 2.9404]
+    coordinates: [9.9137, 2.9404] as [number, number]
   },
   {
     id: "9",
@@ -127,7 +127,7 @@ const allProperties = [
     rating: 4.7,
     image: "https://images.unsplash.com/photo-1575517111839-3a3843ee7f5d?q=80&w=2070&auto=format&fit=crop",
     type: "Maison",
-    coordinates: [9.1849, 4.0214]
+    coordinates: [9.1849, 4.0214] as [number, number]
   }
 ];
 

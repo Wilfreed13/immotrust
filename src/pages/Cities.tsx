@@ -17,7 +17,7 @@ const citiesData = [
     description: "Capitale économique et plus grand port maritime du Cameroun",
     image: "https://images.unsplash.com/photo-1608507777998-7b4de394ccbe?q=80&w=2070&auto=format&fit=crop",
     properties: 96,
-    coordinates: [9.7023, 4.0511],
+    coordinates: [9.7023, 4.0511] as [number, number],
   },
   {
     id: "2",
@@ -26,7 +26,7 @@ const citiesData = [
     description: "Capitale politique et administrative du Cameroun",
     image: "https://images.unsplash.com/photo-1612297728955-a0ad12a75df9?q=80&w=2070&auto=format&fit=crop",
     properties: 84,
-    coordinates: [11.5021, 3.8480],
+    coordinates: [11.5021, 3.8480] as [number, number],
   },
   {
     id: "3",
@@ -35,7 +35,7 @@ const citiesData = [
     description: "Célèbre station balnéaire avec des plages magnifiques",
     image: "https://images.unsplash.com/photo-1590523741831-ab7e8b8f9c7f?q=80&w=2074&auto=format&fit=crop",
     properties: 45,
-    coordinates: [9.9137, 2.9404],
+    coordinates: [9.9137, 2.9404] as [number, number],
   },
   {
     id: "4",
@@ -44,7 +44,7 @@ const citiesData = [
     description: "Ville côtière connue pour ses plages de sable noir et son jardin botanique",
     image: "https://images.unsplash.com/photo-1652367366263-cbe27d8ace95?q=80&w=2071&auto=format&fit=crop",
     properties: 37,
-    coordinates: [9.1849, 4.0214],
+    coordinates: [9.1849, 4.0214] as [number, number],
   },
   {
     id: "5",
@@ -53,7 +53,7 @@ const citiesData = [
     description: "Centre commercial et culturel important de l'Ouest",
     image: "https://images.unsplash.com/photo-1554662392-e1a161135902?q=80&w=2070&auto=format&fit=crop",
     properties: 29,
-    coordinates: [10.4135, 5.4764],
+    coordinates: [10.4135, 5.4764] as [number, number],
   },
   {
     id: "6",
@@ -62,7 +62,7 @@ const citiesData = [
     description: "Ville située au pied du mont Cameroun, plus haut sommet d'Afrique de l'Ouest",
     image: "https://images.unsplash.com/photo-1468276868664-fdcc7bcef5de?q=80&w=2070&auto=format&fit=crop",
     properties: 31,
-    coordinates: [9.2417, 4.1569],
+    coordinates: [9.2417, 4.1569] as [number, number],
   },
   {
     id: "7",
@@ -71,7 +71,7 @@ const citiesData = [
     description: "Capitale de la région du Nord-Ouest et centre culturel",
     image: "https://images.unsplash.com/photo-1518730518541-d0843268c287?q=80&w=2070&auto=format&fit=crop",
     properties: 24,
-    coordinates: [10.1467, 5.9631],
+    coordinates: [10.1467, 5.9631] as [number, number],
   },
   {
     id: "8",
@@ -80,7 +80,7 @@ const citiesData = [
     description: "Principal centre urbain du nord du pays",
     image: "https://images.unsplash.com/photo-1512330905804-1a743d674b60?q=80&w=2080&auto=format&fit=crop",
     properties: 18,
-    coordinates: [13.3889, 9.3045],
+    coordinates: [13.3889, 9.3045] as [number, number],
   },
   {
     id: "9",
@@ -89,7 +89,7 @@ const citiesData = [
     description: "Centre économique et culturel de l'Extrême-Nord",
     image: "https://images.unsplash.com/photo-1499678329028-101435549a4e?q=80&w=2070&auto=format&fit=crop",
     properties: 15,
-    coordinates: [14.3257, 10.5914],
+    coordinates: [14.3257, 10.5914] as [number, number],
   },
 ];
 
