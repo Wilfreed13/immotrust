@@ -13,12 +13,13 @@ import PropertyDetails from "@/components/PropertyDetails";
 import PropertyReviews from "@/components/PropertyReviews";
 import PropertyAvailability from "@/components/PropertyAvailability";
 import PropertyReservation from "@/components/PropertyReservation";
+import { cn } from "@/lib/utils";
 
-// Sample property data for demo - Updated for Douala, Cameroon
+// Données des propriétés camerounaises pour la démo
 const propertyData = {
   id: "1",
   title: "Villa luxueuse à Bonanjo",
-  description: "Magnifique villa située dans le quartier prestigieux de Bonanjo à Douala. Cette propriété exceptionnelle offre un cadre de vie luxueux avec une architecture contemporaine et des finitions haut de gamme. Idéalement située près du fleuve Wouri, elle bénéficie d'une vue imprenable et d'un accès facile au centre des affaires.",
+  description: "Magnifique villa située dans le quartier prestigieux de Bonanjo à Douala. Cette propriété exceptionnelle offre un cadre de vie luxueux avec une architecture contemporaine et des finitions haut de gamme. Idéalement située près du fleuve Wouri, elle bénéficie d'une vue imprenable et d'un accès facile au centre des affaires de Douala. La propriété comprend un grand jardin tropical, une piscine privée et un service de sécurité 24h/24.",
   location: "Bonanjo, Douala, Cameroun",
   price: 150000,
   rating: 4.8,
@@ -34,11 +35,11 @@ const propertyData = {
   beds: 6,
   bathrooms: 3,
   images: [
-    "https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1618221118493-9cfa1a1c00da?q=80&w=2080&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop"
+    "https://images.unsplash.com/photo-1613977257592-4871e5fcd7c4?q=80&w=2070&auto=format&fit=crop", // Villa moderne
+    "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop", // Intérieur luxueux
+    "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=2071&auto=format&fit=crop", // Chambre
+    "https://images.unsplash.com/photo-1618221118493-9cfa1a1c00da?q=80&w=2080&auto=format&fit=crop", // Salle de bain
+    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=2070&auto=format&fit=crop"    // Piscine
   ],
   amenities: [
     "Piscine privée",
@@ -83,14 +84,22 @@ const propertyData = {
       date: "Janvier 2025",
       rating: 5,
       comment: "Une expérience inoubliable à Douala. La villa est encore plus belle que sur les photos. Le quartier de Bonanjo est très agréable, avec ses restaurants et sa proximité du fleuve. Je reviendrai certainement!"
+    },
+    {
+      id: 4,
+      user: "Marie Ndombol",
+      date: "Décembre 2024",
+      rating: 5,
+      comment: "Parfait pour les vacances en famille. La piscine a fait le bonheur des enfants et le service de ménage quotidien était impeccable. Je recommande vivement cette villa pour découvrir Douala dans les meilleures conditions."
     }
-  ]
+  ],
+  coordinates: [9.6917, 4.0480] as [number, number]
 };
 
 export default function PropertyDetail() {
   const { id } = useParams();
-  // In a real app, we would fetch the property data based on the ID
-  // For demo purposes, we're using static data
+  // Dans une vraie app, nous récupérerions les données de la propriété en fonction de l'ID
+  // Pour la démo, on utilise des données statiques
   const property = propertyData;
   
   const [dateRange, setDateRange] = useState<DateRange | undefined>({
@@ -99,19 +108,17 @@ export default function PropertyDetail() {
   });
   
   const handleContactHost = () => {
-    // In a real app, this would open a messaging interface
+    // Dans une vraie application, cela ouvrirait une interface de messagerie
     toast.success("Votre message a été envoyé à l'hôte");
   };
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Navbar />
-      
       <main className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-bold mb-2">{property.title}</h1>
         
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-4">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
             <div className="flex items-center">
               <Star className="h-5 w-5 text-yellow-500 mr-1 fill-yellow-500" />
               <span className="font-medium">{property.rating}</span>
@@ -125,7 +132,7 @@ export default function PropertyDetail() {
             </div>
           </div>
           
-          <div className="hidden md:flex gap-2">
+          <div className="flex gap-2">
             <Button variant="outline" size="sm" onClick={handleContactHost}>
               <MessageSquare className="h-4 w-4 mr-2" />
               Contacter l'hôte

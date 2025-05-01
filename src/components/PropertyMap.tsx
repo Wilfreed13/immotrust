@@ -1,3 +1,4 @@
+
 import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -9,7 +10,7 @@ type Property = {
   location: string;
   price: number;
   rating: number;
-  coordinates: [number, number]; // Correctly typed as tuple
+  coordinates: [number, number]; // Correctement typé comme tuple
   image?: string;
 };
 
@@ -26,6 +27,10 @@ const PropertyMap = ({ properties }: PropertyMapProps) => {
   // À remplacer par une vraie clé Mapbox
   const MAPBOX_TOKEN = "pk.eyJ1IjoiZGVtby11c2VyIiwiYSI6ImNsZGFqM3d3ZTBuZGgzcW53ZXF0YTB6dDQifQ.JGQsoFI3W_bFktt0xoE0LA";
 
+  // Coordonnées centrales du Cameroun
+  const CAMEROON_CENTER: [number, number] = [12.3547, 5.4755];
+  const DEFAULT_ZOOM = 5.5;
+
   useEffect(() => {
     if (!mapContainer.current) return;
 
@@ -34,8 +39,8 @@ const PropertyMap = ({ properties }: PropertyMapProps) => {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: 'mapbox://styles/mapbox/streets-v12',
-      center: properties.length > 0 ? properties[0].coordinates : [9.7023, 4.0511], // Douala par défaut
-      zoom: 12,
+      center: properties.length > 0 ? properties[0].coordinates : CAMEROON_CENTER,
+      zoom: properties.length > 0 ? 10 : DEFAULT_ZOOM,
     });
 
     map.current.addControl(new mapboxgl.NavigationControl(), 'top-right');
@@ -49,9 +54,13 @@ const PropertyMap = ({ properties }: PropertyMapProps) => {
       });
       
       map.current.fitBounds(bounds, {
-        padding: 50,
+        padding: { top: 50, bottom: 50, left: 50, right: 50 },
         maxZoom: 13
       });
+    } else {
+      // Si pas de propriétés, centrer sur le Cameroun
+      map.current.setCenter(CAMEROON_CENTER);
+      map.current.setZoom(DEFAULT_ZOOM);
     }
 
     return () => {
@@ -90,8 +99,12 @@ const PropertyMap = ({ properties }: PropertyMapProps) => {
         .setHTML(`
           <div style="width: 200px;">
             ${property.image ? 
-              `<img src="${property.image}" alt="${property.title}" style="width: 100%; height: 120px; object-fit: cover; border-radius: 4px; margin-bottom: 8px;">` : 
-              ''
+              `<img src="${property.image}" alt="${property.title}" 
+                style="width: 100%; height: 120px; object-fit: cover; border-radius: 4px; margin-bottom: 8px;"
+                onerror="this.onerror=null;this.src='/placeholder.svg';">` : 
+              `<div style="width: 100%; height: 120px; background-color: #f3f4f6; 
+                border-radius: 4px; margin-bottom: 8px; display: flex; align-items: center; 
+                justify-content: center;">Image non disponible</div>`
             }
             <h4 style="font-weight: bold; margin-bottom: 4px;">${property.title}</h4>
             <p style="color: #666; margin-bottom: 6px;">${property.location}</p>
@@ -122,9 +135,13 @@ const PropertyMap = ({ properties }: PropertyMapProps) => {
       });
       
       map.current.fitBounds(bounds, {
-        padding: 50,
+        padding: { top: 50, bottom: 50, left: 50, right: 50 },
         maxZoom: 13
       });
+    } else {
+      // Si pas de propriétés, centrer sur le Cameroun
+      map.current.setCenter(CAMEROON_CENTER);
+      map.current.setZoom(DEFAULT_ZOOM);
     }
   }, [properties, navigate]);
 

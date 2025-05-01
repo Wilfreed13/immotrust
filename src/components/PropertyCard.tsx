@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Star, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 export type PropertyCardProps = {
   id: string;
@@ -28,6 +29,29 @@ export default function PropertyCard({
   className,
   featured = false,
 }: PropertyCardProps) {
+  const [imageError, setImageError] = useState(false);
+  
+  // Images de secours spécifiques au Cameroun
+  const fallbackImages = [
+    "/images/cameroon-fallback-1.jpg",
+    "/images/cameroon-fallback-2.jpg",
+    "/placeholder.svg"
+  ];
+  
+  // Si l'image principale échoue, utiliser une image de secours
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
+  // Obtenir une image de secours aléatoire ou le placeholder par défaut
+  const getFallbackImage = () => {
+    if (fallbackImages.length > 0) {
+      const randomIndex = Math.floor(Math.random() * (fallbackImages.length - 1));
+      return fallbackImages[randomIndex] || fallbackImages[fallbackImages.length - 1];
+    }
+    return "/placeholder.svg";
+  };
+
   return (
     <Link 
       to={`/properties/${id}`} 
@@ -40,14 +64,11 @@ export default function PropertyCard({
       <div className="relative overflow-hidden rounded-t-lg">
         <div className="aspect-[4/3]">
           <img
-            src={image}
+            src={imageError ? getFallbackImage() : image}
             alt={title}
             className="w-full h-full object-cover transition-transform duration-200 hover:scale-105"
             loading="lazy"
-            onError={(e) => {
-              e.currentTarget.src = "/placeholder.svg";
-              e.currentTarget.onerror = null;
-            }}
+            onError={handleImageError}
           />
         </div>
         <Badge variant="secondary" className="absolute top-3 left-3">

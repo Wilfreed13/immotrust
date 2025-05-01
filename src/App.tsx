@@ -32,22 +32,24 @@ const App = () => {
         <ThemeProvider defaultTheme="light">
           <TooltipProvider>
             <BrowserRouter>
-              <Navbar />
-              <main className="min-h-screen">
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/properties" element={<Properties />} />
-                  <Route path="/properties/:id" element={<PropertyDetail />} />
-                  <Route path="/properties/add" element={<PropertyForm />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/messages" element={<Messages />} />
-                  <Route path="/cities" element={<Cities />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </main>
-              <Footer />
-              <Toaster />
-              <Sonner />
+              <div className="flex flex-col min-h-screen">
+                <Navbar />
+                <main className="flex-grow">
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/properties" element={<Properties />} />
+                    <Route path="/properties/:id" element={<PropertyDetail />} />
+                    <Route path="/properties/add" element={<PropertyForm />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/messages" element={<Messages />} />
+                    <Route path="/cities" element={<Cities />} />
+                    <Route path="*" element={<NotFound />} />
+                  </Routes>
+                </main>
+                <Footer />
+                <Toaster />
+                <Sonner />
+              </div>
             </BrowserRouter>
           </TooltipProvider>
         </ThemeProvider>
