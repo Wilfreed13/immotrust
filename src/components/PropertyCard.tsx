@@ -14,7 +14,7 @@ export type PropertyCardProps = {
   type: string;
   className?: string;
   featured?: boolean;
-  coordinates?: [number, number];
+  coordinates?: [number, number]; // Typed as tuple
 };
 
 export default function PropertyCard({
@@ -37,12 +37,19 @@ export default function PropertyCard({
         className
       )}
     >
-      <div className="relative">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-52 object-cover rounded-t-lg"
-        />
+      <div className="relative overflow-hidden rounded-t-lg">
+        <div className="aspect-[4/3]">
+          <img
+            src={image}
+            alt={title}
+            className="w-full h-full object-cover transition-transform duration-200 hover:scale-105"
+            loading="lazy"
+            onError={(e) => {
+              e.currentTarget.src = "/placeholder.svg";
+              e.currentTarget.onerror = null;
+            }}
+          />
+        </div>
         <Badge variant="secondary" className="absolute top-3 left-3">
           {type}
         </Badge>
@@ -54,17 +61,17 @@ export default function PropertyCard({
       </div>
       <div className={cn("p-4", featured ? "border-x border-b rounded-b-lg" : "")}>
         <div className="flex items-start justify-between">
-          <h3 className="font-medium text-lg line-clamp-1">{title}</h3>
+          <h3 className="font-medium text-lg line-clamp-1 text-left">{title}</h3>
           <div className="flex items-center">
             <Star className="h-4 w-4 text-yellow-500 mr-1 fill-yellow-500" />
             <span className="text-sm">{rating.toFixed(1)}</span>
           </div>
         </div>
-        <div className="flex items-center mt-2 text-muted-foreground text-sm">
-          <MapPin className="h-3 w-3 mr-1" />
-          <span>{location}</span>
+        <div className="flex items-center mt-2 text-muted-foreground text-sm text-left">
+          <MapPin className="h-3 w-3 mr-1 flex-shrink-0" />
+          <span className="truncate">{location}</span>
         </div>
-        <div className="mt-4">
+        <div className="mt-4 text-left">
           <p className="font-semibold">
             {price.toLocaleString('fr-FR')} FCFA <span className="text-muted-foreground font-normal text-sm">/ nuit</span>
           </p>

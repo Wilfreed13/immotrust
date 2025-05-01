@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { DateRange } from "react-day-picker";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,

@@ -2,6 +2,7 @@
 import { FC } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { DateRange } from "react-day-picker";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface PropertyAvailabilityProps {
   dateRange: DateRange | undefined;
@@ -14,13 +15,15 @@ const PropertyAvailability: FC<PropertyAvailabilityProps> = ({
   setDateRange, 
   unavailableDates 
 }) => {
+  const isMobile = useIsMobile();
+  
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center flex-wrap">
       <Calendar
         mode="range"
         selected={dateRange}
         onSelect={setDateRange}
-        numberOfMonths={2}
+        numberOfMonths={isMobile ? 1 : 2}
         disabled={(date) => 
           date < new Date() || 
           unavailableDates.some(unavailable => 

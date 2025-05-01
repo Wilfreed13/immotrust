@@ -1,6 +1,6 @@
 
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { User, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,17 +16,39 @@ import { cn } from "@/lib/utils";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
   // Placeholder function for demo purposes
   const toggleLogin = () => setIsLoggedIn(!isLoggedIn);
-
+  
+  // Add scroll listener to detect when to add shadow
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  
+  // Close mobile menu when route changes
+  useEffect(() => {
+    closeMenu();
+  }, [location.pathname]);
+  
   return (
-    <nav className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b">
+    <nav 
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b transition-shadow duration-300",
+        isScrolled ? "shadow-md" : "shadow-none"
+      )}
+    >
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2" onClick={closeMenu}>
+        <Link to="/" className="flex items-center gap-2 z-50" onClick={closeMenu}>
           <span className="text-primary font-bold text-xl">ElegantStay</span>
         </Link>
 
@@ -84,7 +106,7 @@ export default function Navbar() {
             variant="ghost" 
             size="icon" 
             onClick={toggleMenu} 
-            className="md:hidden"
+            className="md:hidden z-50"
           >
             {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             <span className="sr-only">Menu</span>
@@ -92,14 +114,14 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Navigation */}
+      {/* Mobile Navigation - using fixed positioning for better overlay */}
       <div 
         className={cn(
-          "fixed inset-0 top-[57px] bg-background z-40 md:hidden transition-transform duration-300 transform",
-          isOpen ? "translate-x-0" : "translate-x-full"
+          "fixed inset-0 top-0 bg-background z-40 md:hidden transition-all duration-300 overflow-y-auto",
+          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         )}
       >
-        <div className="container mx-auto px-4 py-6 flex flex-col gap-4">
+        <div className="pt-20 pb-6 px-4 flex flex-col gap-4">
           <Link 
             to="/properties"
             className="text-foreground hover:text-primary py-2 transition-colors"
@@ -153,7 +175,7 @@ export default function Navbar() {
               </Button>
             </>
           ) : (
-            <Button onClick={() => { toggleLogin(); closeMenu(); }}>
+            <Button onClick={() => { toggleLogin(); closeMenu(); }} className="w-full">
               Connexion
             </Button>
           )}
@@ -161,4 +183,4 @@ export default function Navbar() {
       </div>
     </nav>
   );
-}
+};

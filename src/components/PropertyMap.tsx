@@ -10,7 +10,7 @@ type Property = {
   location: string;
   price: number;
   rating: number;
-  coordinates: [number, number];
+  coordinates: [number, number]; // Typed as tuple
   image?: string;
 };
 
@@ -129,7 +129,7 @@ const PropertyMap = ({ properties }: PropertyMapProps) => {
     }
   }, [properties, navigate]);
 
-  return <div ref={mapContainer} className="w-full h-full" />;
+  return <div ref={mapContainer} className="w-full h-full rounded-lg overflow-hidden" />;
 };
 
 export default PropertyMap;
